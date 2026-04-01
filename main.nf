@@ -1,6 +1,6 @@
 //move params
 params.input = "s3://upload-02c5fb7c/GCA_001049335.1.genomes_clean.fa.gz"
-params.hmm_profile = "../nfixplanet/src/nfixplanet/reference_data/hmm_profiles/nfixplanet_models.hmm"
+params.hmm_profile = "../nfixplanet/src/nfixplanet/reference_data/hmm_profiles/nfixplanet_models.hmm" //TODO: update
 
 process prodigal {
     input:
@@ -43,6 +43,8 @@ process hmmscan {
     path "hmm_output.tbl"
 
     container "quay.io/biocontainers/hmmer:3.4--hdbdd923_1"
+
+    //TODO: test after resources are added to clowm
 
     script:
     """
