@@ -1,5 +1,6 @@
 //move params
 params.input = "s3://upload-02c5fb7c/GCA_001049335.1.genomes_clean.fa.gz"
+params.output_dir = "output"
 params.hmm_profile = "/vol/data/databases/clowm/CLDB-019d446b8a2e7fb8b797a2b3b819c485/latest/src/nfixplanet/reference_data/hmm_profiles/nfixplanet_models.hmm"
 
 process prodigal {
@@ -8,6 +9,8 @@ process prodigal {
 
     output:
     path "${fa.baseName}.prodigal.fna"
+
+    label process_single
 
     container "quay.io/biocontainers/prodigal:2.6.3--h516909a_2"
 
@@ -42,14 +45,13 @@ process hmmscan {
     output:
     path "hmm_output.tbl"
 
-    container "quay.io/biocontainers/hmmer:3.4--hdbdd923_1"
+    label mini
 
-    //TODO: test after resources are added to clowm
+    container "quay.io/biocontainers/hmmer:3.4--hdbdd923_1"
 
     script:
     """
-    ls /vol/data/databases/clowm/CLDB-019d446b8a2e7fb8b797a2b3b819c485/latest/ > hmm_output.tbl
-    # hmmscan --cpu 4 --cut_ga --tblout hmm_output.tbl ${params.hmm_profile} ${fa}
+    hmmscan --cpu ${task.cpus} --cut_ga --tblout hmm_output.tbl ${params.hmm_profile} ${fa}
     """
 }
 
@@ -60,7 +62,9 @@ process nfix_annotate {
     output:
     path annotations
 
-    //TODO: add publish dir
+    label tiny
+
+    publishDir ${params.output_dir}, mode = "copy"
 
     container "mahdirobbani/nfixplanet:0.1.6"
 
