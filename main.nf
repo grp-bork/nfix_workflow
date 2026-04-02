@@ -1,6 +1,6 @@
 //move params
 params.input = "s3://upload-02c5fb7c/GCA_001049335.1.genomes_clean.fa.gz"
-params.hmm_profile = "../nfixplanet/src/nfixplanet/reference_data/hmm_profiles/nfixplanet_models.hmm" //TODO: update
+params.hmm_profile = "/vol/data/databases/clowm/CLDB-019d446b8a2e7fb8b797a2b3b819c485/latest/src/nfixplanet/reference_data/hmm_profiles/nfixplanet_models.hmm"
 
 process prodigal {
     input:
@@ -48,7 +48,8 @@ process hmmscan {
 
     script:
     """
-    hmmscan --cpu 4 --cut_ga --tblout hmm_output.tbl ${params.hmm_profile} ${fa}
+    ls /vol/data/databases/clowm/CLDB-019d446b8a2e7fb8b797a2b3b819c485/latest/ > hmm_output.tbl
+    # hmmscan --cpu 4 --cut_ga --tblout hmm_output.tbl ${params.hmm_profile} ${fa}
     """
 }
 
