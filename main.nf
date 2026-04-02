@@ -1,6 +1,6 @@
 //move params
 params.input = "s3://upload-02c5fb7c/GCA_001049335.1.genomes_clean.fa.gz"
-params.output_dir = "output"
+params.output_dir = "s3://download-87699825/nfix_out"
 params.hmm_profile = "/vol/data/databases/clowm/CLDB-019d446b8a2e7fb8b797a2b3b819c485/latest/src/nfixplanet/reference_data/hmm_profiles/nfixplanet_models.hmm"
 
 process prodigal {
