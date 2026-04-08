@@ -10,10 +10,6 @@ process prodigal {
     output:
     path "${fa.baseName}.prodigal.fna"
 
-    label process_single
-
-    container "quay.io/biocontainers/prodigal:2.6.3--h516909a_2"
-
     script:
     def out_file = "${fa.baseName}.prodigal.fna"
 
@@ -45,10 +41,6 @@ process hmmscan {
     output:
     path "hmm_output.tbl"
 
-    label mini
-
-    container "quay.io/biocontainers/hmmer:3.4--hdbdd923_1"
-
     script:
     """
     hmmscan --cpu ${task.cpus} --cut_ga --tblout hmm_output.tbl ${params.hmm_profile} ${fa}
@@ -62,11 +54,7 @@ process nfix_annotate {
     output:
     path annotations
 
-    label tiny
-
-    publishDir ${params.output_dir}, mode = "copy"
-
-    container "mahdirobbani/nfixplanet:0.1.6"
+    publishDir "${params.output_dir}", mode = "copy"
 
     script:
     """
