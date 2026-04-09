@@ -36,6 +36,8 @@ process hmmscan {
     output:
     path "hmm_output.tbl"
 
+    publishDir = [ path: "${params.output_dir}", mode: "copy", pattern: "*.tbl" ]
+
     script:
     """
     hmmscan --cpu ${task.cpus} --cut_ga --tblout hmm_output.tbl ${params.hmm_profile} ${fa}
@@ -49,7 +51,7 @@ process nfix_annotate {
     output:
     path "annotations"
 
-    publishDir = [ path: "${params.output_dir}", mode: "copy", pattern: "*" ]
+    publishDir = [ path: "${params.output_dir}", mode: "copy", pattern: "annotations/*" ]
 
     script:
     """
