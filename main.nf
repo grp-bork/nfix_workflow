@@ -49,6 +49,8 @@ process nfix_annotate {
     output:
     path "annotations"
 
+    publishDir = [ path: "${params.output_dir}", mode: "copy", pattern: "*" ]
+
     script:
     """
     nfixplanet annotate --input_hmms ${hmm_file} --output_directory annotations
