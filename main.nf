@@ -36,7 +36,7 @@ process hmmscan {
     output:
     path "hmm_output.tbl"
 
-    publishDir = [ path: "${params.output_dir}", mode: "copy", pattern: "*.tbl" ]
+    publishDir "${params.output_dir}", mode: "copy"
 
     script:
     """
@@ -49,9 +49,9 @@ process nfix_annotate {
     path hmm_file
 
     output:
-    path "annotations"
+    path "annotations/*"
 
-    publishDir = [ path: "${params.output_dir}", mode: "copy", pattern: "annotations/*" ]
+    publishDir "${params.output_dir}", mode: "copy"
 
     script:
     """
